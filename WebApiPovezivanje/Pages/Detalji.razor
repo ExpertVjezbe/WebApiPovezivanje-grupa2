@@ -1,0 +1,15 @@
+﻿@page "/detalji/{id:int}"
+@inject NavigationManager navManager;
+<h3>Detalji</h3>
+
+Proslijeđeni Id= @Id
+<button @onclick="Nazad">Nazad</button>
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    public void Nazad()
+    {
+        navManager.NavigateTo("/osobe");
+    }
+}

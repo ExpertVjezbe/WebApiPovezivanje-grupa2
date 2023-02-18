@@ -1,0 +1,35 @@
+﻿@page "/osobe"
+@using WebApiPovezivanje.Models;
+@inject HttpClient httpClient;
+@inject NavigationManager navManager;
+
+<h3>ListaOsoba</h3>
+
+<ul>
+    @foreach(var item in osobe)
+    {
+        <li>@item.Ime @item.Prezime  @item.Id
+            <button @onclick="()=>Detalji(item.Id)" >Detalji</button>
+        </li>
+    }
+
+</ul>
+
+@code {
+    public List<Osoba> osobe = new List<Osoba>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result =await httpClient.GetAsync("https://expertvjezbeapi.azurewebsites.net/api/Osobes");
+        if (result.IsSuccessStatusCode)
+        {
+            osobe = await result.Content.ReadFromJsonAsync<List<Osoba>>();
+        }
+
+    }
+
+    protected void Detalji(int idOsobe)
+    {
+        navManager.NavigateTo($"detalji/{idOsobe}");
+    }
+}

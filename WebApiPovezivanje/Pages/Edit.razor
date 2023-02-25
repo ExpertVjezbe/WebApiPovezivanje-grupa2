@@ -51,7 +51,8 @@
     }
     public async void UrediOsobu()
     {
-        var result = await httpClient.PutAsJsonAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}",osoba);
+        var result = await httpClient.
+        PutAsJsonAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}",osoba);
     
     }
 }

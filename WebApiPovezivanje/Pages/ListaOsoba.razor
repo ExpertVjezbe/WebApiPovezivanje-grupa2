@@ -10,6 +10,7 @@
     {
         <li>@item.Ime @item.Prezime  @item.Id
             <button @onclick="()=>Detalji(item.Id)" >Detalji</button>
+            <button @onclick="()=>Uredi(item.Id)">Uredi Osobu</button>
         </li>
     }
 
@@ -31,5 +32,9 @@
     protected void Detalji(int idOsobe)
     {
         navManager.NavigateTo($"detalji/{idOsobe}");
+    }
+    protected void Uredi(int idOsobe)
+    {
+        navManager.NavigateTo($"edit/{idOsobe}");
     }
 }

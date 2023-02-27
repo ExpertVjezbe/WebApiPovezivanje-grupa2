@@ -1,9 +1,9 @@
-﻿@page "/edit/{id:int}"
+﻿@page "/dodaj"
 @using WebApiPovezivanje.Models
-@inject HttpClient httpClient;
+@inject HttpClient client;
 @inject NavigationManager navManager;
-<h3>Edit</h3>
-   <form @onsubmit="UrediOsobu">
+<h3>Dodaj</h3>
+ <form @onsubmit="DodajOsobu">
     <p>
         <label for="fime">Ime</label>
         <input id="fime" @bind-value="osoba.Ime"  name="fime" type="text" placeholder="Upiši ime"  />
@@ -37,24 +37,15 @@
     </p>
 </form>
 
+
+
 @code {
-    [Parameter]
-    public int Id { get; set; }
-    public Osoba osoba = new Osoba();
-
-    protected override async Task OnInitializedAsync()
+    Osoba osoba = new Osoba();
+    public async Task DodajOsobu()
     {
-        var result = await httpClient.GetAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}");
-        if (result.IsSuccessStatusCode)
-        {
-            osoba = await result.Content.ReadFromJsonAsync<Osoba>();
-        }
-    }
-    public async void UrediOsobu()
-    {
-
-        var result = await httpClient.
-        PutAsJsonAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}", osoba);
+        var result = await client.PostAsJsonAsync<Osoba>
+        ("https://expertvjezbeapi.azurewebsites.net/api/Osobes"
+        , osoba);
         if (result.IsSuccessStatusCode)
         {
             navManager.NavigateTo("osobe");
